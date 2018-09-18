@@ -1,6 +1,7 @@
 using System;
 
-namespace VendasWEBMVC1.Models {
+
+namespace VendasWEBMVC1.Models.ViewModels {
     public class ErrorViewModel {
         public string RequestId { get; set; }
 

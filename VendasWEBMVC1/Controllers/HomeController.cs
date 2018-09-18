@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VendasWEBMVC1.Models;
+using VendasWEBMVC1.Models.ViewModels;
 
 namespace VendasWEBMVC1.Controllers {
     public class HomeController : Controller {
