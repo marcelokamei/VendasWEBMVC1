@@ -31,8 +31,10 @@ namespace VendasWEBMVC1 {
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-    services.AddDbContext<VendasWEBMVC1Context>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("VendasWEBMVC1Context")));
+            //  services.AddDbContext<VendasWEBMVC1Context>(options => options.UseSqlServer(Configuration.GetConnectionString("VendasWEBMVC1Context")));
+
+            services.AddDbContext<VendasWEBMVC1Context>(options => options.UseMySql(Configuration.GetConnectionString("VendasWEBMVC1Context"), builder => builder.MigrationsAssembly("VendasWEBMVC1")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
