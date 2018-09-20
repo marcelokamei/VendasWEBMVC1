@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VendasWEBMVC1.Models;
 using VendasWEBMVC1.Data;
+using VendasWEBMVC1.Services;
 
 namespace VendasWEBMVC1 {
     public class Startup {
@@ -37,6 +38,7 @@ namespace VendasWEBMVC1 {
             services.AddDbContext<VendasWEBMVC1Context>(options => options.UseMySql(Configuration.GetConnectionString("VendasWEBMVC1Context"), builder => builder.MigrationsAssembly("VendasWEBMVC1")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
