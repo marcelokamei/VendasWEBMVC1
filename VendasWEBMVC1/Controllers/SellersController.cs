@@ -9,10 +9,8 @@ using VendasWEBMVC1.Models.ViewModels;
 using VendasWEBMVC1.Services.Exceptions;
 using System.Diagnostics;
 
-namespace VendasWEBMVC1.Controllers
-{
-    public class SellersController : Controller
-    {
+namespace VendasWEBMVC1.Controllers {
+    public class SellersController : Controller {
 
         private readonly SellerService _sellerService;
 
@@ -23,8 +21,7 @@ namespace VendasWEBMVC1.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             var list = _sellerService.FindAll();
             return View(list);
         }
@@ -39,16 +36,23 @@ namespace VendasWEBMVC1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller) {
+
+            if (!ModelState.IsValid) {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int? id) {
-            if(id == null) {
+            if (id == null) {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
             var obj = _sellerService.FindById(id.Value);
-            if(obj == null) {
+            if (obj == null) {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
             return View(obj);
@@ -73,7 +77,7 @@ namespace VendasWEBMVC1.Controllers
         }
 
         public IActionResult Edit(int? id) {
-            if(id == null) {
+            if (id == null) {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
             var obj = _sellerService.FindById(id.Value);
@@ -88,7 +92,14 @@ namespace VendasWEBMVC1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller) {
-            if(id != seller.Id) {
+
+            if (!ModelState.IsValid) {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
+            if (id != seller.Id) {
                 return BadRequest();
             }
             try {
