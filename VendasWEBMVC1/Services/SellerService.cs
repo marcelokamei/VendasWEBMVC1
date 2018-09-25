@@ -32,7 +32,7 @@ namespace VendasWEBMVC1.Services {
                 var obj = await _context.Seller.FindAsync(id);
                 _context.Seller.Remove(obj);
                 await _context.SaveChangesAsync();
-            } catch (DbUpdateException e) {
+            } catch (DbUpdateException) {
 
                 throw new IntegrityException("Não é possível deletar o(a) vendedor(a) pois ele(a) tem vendas realizadas.");
             }
